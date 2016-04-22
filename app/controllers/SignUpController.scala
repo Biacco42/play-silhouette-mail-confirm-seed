@@ -77,4 +77,9 @@ class SignUpController @Inject() (
       }
     )
   }
+
+  def mailConfirm(token: String) = Action.async { implicit request =>
+    Future(Redirect(routes.ApplicationController.index()))
+  }
+
 }
