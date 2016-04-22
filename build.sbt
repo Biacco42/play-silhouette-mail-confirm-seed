@@ -1,6 +1,6 @@
 import scalariform.formatter.preferences._
 
-name := "play-silhouette-reactivemongo-seed"
+name := "play-silhouette-mail-confirm-seed"
 
 version := "3.0.0"
 
@@ -20,6 +20,7 @@ libraryDependencies ++= Seq(
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",
   "com.mohiva" %% "play-silhouette-testkit" % "3.0.0" % "test",
   "org.reactivemongo" %% "play2-reactivemongo" % "0.11.5.play24",
+  "com.typesafe.play" %% "play-mailer" % "4.0.0",
   specs2 % Test,
   cache,
   filters
