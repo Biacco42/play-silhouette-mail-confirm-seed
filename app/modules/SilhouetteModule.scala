@@ -1,18 +1,18 @@
 package modules
 
-import com.google.inject.{ AbstractModule, Provides }
+import com.google.inject.{AbstractModule, Provides}
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.api.services._
 import com.mohiva.play.silhouette.api.util._
-import com.mohiva.play.silhouette.api.{ Environment, EventBus }
+import com.mohiva.play.silhouette.api.{Environment, EventBus}
 import com.mohiva.play.silhouette.impl.authenticators._
 import com.mohiva.play.silhouette.impl.daos.DelegableAuthInfoDAO
 import com.mohiva.play.silhouette.impl.providers._
 import com.mohiva.play.silhouette.impl.providers.oauth1._
-import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{ CookieSecretProvider, CookieSecretSettings }
+import com.mohiva.play.silhouette.impl.providers.oauth1.secrets.{CookieSecretProvider, CookieSecretSettings}
 import com.mohiva.play.silhouette.impl.providers.oauth1.services.PlayOAuth1Service
 import com.mohiva.play.silhouette.impl.providers.oauth2._
-import com.mohiva.play.silhouette.impl.providers.oauth2.state.{ CookieStateProvider, CookieStateSettings, DummyStateProvider }
+import com.mohiva.play.silhouette.impl.providers.oauth2.state.{CookieStateProvider, CookieStateSettings, DummyStateProvider}
 import com.mohiva.play.silhouette.impl.providers.openid.YahooProvider
 import com.mohiva.play.silhouette.impl.providers.openid.services.PlayOpenIDService
 import com.mohiva.play.silhouette.impl.repositories.DelegableAuthInfoRepository
@@ -20,7 +20,7 @@ import com.mohiva.play.silhouette.impl.services._
 import com.mohiva.play.silhouette.impl.util._
 import models.User
 import models.daos._
-import models.services.{ UserService, UserServiceImpl }
+import models.services.{MailService, MailServiceImpl, UserService, UserServiceImpl}
 import net.ceedubs.ficus.Ficus._
 import net.ceedubs.ficus.readers.ArbitraryTypeReader._
 import net.codingwell.scalaguice.ScalaModule
@@ -41,6 +41,8 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   def configure() {
     bind[UserService].to[UserServiceImpl]
     bind[UserDAO].to[UserDAOImpl]
+    bind[MailService].to[MailServiceImpl]
+    bind[MailTokenDAO].to[MailTokenDAOImpl]
     bind[DB].toInstance {
       import com.typesafe.config.ConfigFactory
       import scala.concurrent.ExecutionContext.Implicits.global

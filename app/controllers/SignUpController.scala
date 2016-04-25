@@ -11,8 +11,8 @@ import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import com.mohiva.play.silhouette.impl.providers._
 import forms.SignUpForm
 import models.User
-import models.services.UserService
-import play.api.i18n.{ MessagesApi, Messages }
+import models.services.{MailService, UserService}
+import play.api.i18n.{Messages, MessagesApi}
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.Action
 
@@ -34,7 +34,8 @@ class SignUpController @Inject() (
   userService: UserService,
   authInfoRepository: AuthInfoRepository,
   avatarService: AvatarService,
-  passwordHasher: PasswordHasher)
+  passwordHasher: PasswordHasher,
+  mailService: MailService)
   extends Silhouette[User, CookieAuthenticator] {
 
   /**
@@ -59,11 +60,13 @@ class SignUpController @Inject() (
               lastName = Some(data.lastName),
               fullName = Some(data.firstName + " " + data.lastName),
               email = Some(data.email),
-              avatarURL = None
+              avatarURL = None,
+              mailConfirmed = None
             )
             for {
               avatar <- avatarService.retrieveURL(data.email)
               user <- userService.save(user.copy(avatarURL = avatar))
+              _ <- mailService.sendConfirm(user)
               authInfo <- authInfoRepository.add(loginInfo, authInfo)
               authenticator <- env.authenticatorService.create(loginInfo)
               value <- env.authenticatorService.init(authenticator)
