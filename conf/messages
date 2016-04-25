@@ -45,4 +45,4 @@ mail.sign = New service team.
 mail.confirm.title = New service. Confirm your mail address.
 mail.confirm.hello = Thank you for using new service, {1}.
 mail.confirm.prelink = Please confirm your mail address to click the link below.
-mail.confirm.postlink = Thank you for your sign up this service.
+mail.confirm.postlink = Thank you for your signing up this service.
