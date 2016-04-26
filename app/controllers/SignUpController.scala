@@ -82,7 +82,17 @@ class SignUpController @Inject() (
   }
 
   def mailConfirm(token: String) = Action.async { implicit request =>
-    Future(Redirect(routes.ApplicationController.index()))
+    mailService.consumeToken(UUID.fromString(token), "confirm").
+      flatMap{
+        case Some(userId) =>
+          userService.retrieve(userId).map{
+            case Some(user) =>
+              userService.save(user.copy(mailConfirmed = Some(true)))
+              Redirect(routes.ApplicationController.index())
+            case None => Redirect(routes.ApplicationController.error())
+          }
+        case None => Future(Redirect(routes.ApplicationController.error()))
+      }
   }
 
 }
