@@ -48,3 +48,6 @@ mail.confirm.prelink = Please confirm your mail address to click the link below.
 mail.confirm.postlink = Thank you for your signing up this service.
 
 error.mailconfirm = Something wrong with confirming your address. Sorry.
+
+user.stats.mailconfirmed = Address confirmed
+user.stats.mailnotconfirmed = Address not confirmed

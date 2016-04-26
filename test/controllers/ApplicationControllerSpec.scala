@@ -75,7 +75,8 @@ class ApplicationControllerSpec extends PlaySpecification with Mockito {
       lastName = None,
       fullName = None,
       email = None,
-      avatarURL = None
+      avatarURL = None,
+      mailConfirmed = None
     )
 
     /**

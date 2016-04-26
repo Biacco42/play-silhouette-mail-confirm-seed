@@ -39,6 +39,13 @@
                     <ul class="nav navbar-nav navbar-right">
                         @user.map { u =>
                             <li><a href="@routes.ApplicationController.index">@u.fullName</a></li>
+                            <li><a href="@routes.ApplicationController.index">@u.mailConfirmed.map{ mc =>
+                                    @if(mc) {
+                                        @Messages("user.stats.mailconfirmed")
+                                    } else {
+                                        @Messages("user.stats.mailnotconfirmed")
+                                    }
+                                }.getOrElse{@Messages("user.stats.mailnotconfirmed")}</a></li>
                             <li><a href="@routes.ApplicationController.signOut">@Messages("sign.out")</a></li>
                         }.getOrElse {
                             <li><a href="@routes.ApplicationController.signIn">@Messages("sign.in")</a></li>

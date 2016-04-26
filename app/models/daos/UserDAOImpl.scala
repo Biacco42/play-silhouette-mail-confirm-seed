@@ -54,5 +54,10 @@ class UserDAOImpl @Inject() (db : DB) extends UserDAO {
     collection.insert(user)
     Future.successful(user)
   }
+
+  def update(user: User): Future[User] = {
+    collection.update(Json.obj("userID" -> user.userID), user)
+    Future.successful(user)
+  }
 }
 
