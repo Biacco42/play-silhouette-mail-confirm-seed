@@ -2,12 +2,13 @@ package controllers
 
 import javax.inject.Inject
 
-import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
+import com.mohiva.play.silhouette.api.{Environment, LogoutEvent, Silhouette}
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import forms._
 import models.User
 import play.api.i18n.MessagesApi
+import play.api.mvc.Action
 
 import scala.concurrent.Future
 
@@ -67,5 +68,9 @@ class ApplicationController @Inject() (
     env.eventBus.publish(LogoutEvent(request.identity, request, request2Messages))
 
     env.authenticatorService.discard(request.authenticator, result)
+  }
+
+  def error = Action { implicit request =>
+    Ok(views.html.mailConfirmError())
   }
 }

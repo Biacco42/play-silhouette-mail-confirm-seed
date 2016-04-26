@@ -89,6 +89,7 @@ class MailServiceSpec extends PlaySpecification with Mockito with Inject {
         Option("Test"), Option("Taro"),
         Option("Test Taro"),
         Option("hoge@piyo.com"),
+        None,
         None)
   }
 
