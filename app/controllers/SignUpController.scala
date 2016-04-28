@@ -66,7 +66,6 @@ class SignUpController @Inject() (
             for {
               avatar <- avatarService.retrieveURL(data.email)
               user <- userService.save(user.copy(avatarURL = avatar))
-              _ <- mailService.sendConfirm(user)
               authInfo <- authInfoRepository.add(loginInfo, authInfo)
               authenticator <- env.authenticatorService.create(loginInfo)
               value <- env.authenticatorService.init(authenticator)
@@ -74,6 +73,7 @@ class SignUpController @Inject() (
             } yield {
               env.eventBus.publish(SignUpEvent(user, request, request2Messages))
               env.eventBus.publish(LoginEvent(user, request, request2Messages))
+              mailService.sendConfirm(user)
               result
             }
         }
